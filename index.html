@@ -1,1 +1,158 @@
-<h1>mmmm paparoni :))))))))</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>tazy's coding corner</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX///+nxBvIAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII=') repeat;
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .centertext {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .anim-emoji {
+      display: block;
+      margin: 0 auto;
+      width: 50px;
+      height: auto;
+      animation: bounce 1s infinite alternate;
+    }
+
+    main {
+      max-width: 800px;
+      margin: auto;
+      padding: 4rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #00ffe1;
+      letter-spacing: -1px;
+    }
+
+    .pagefx {
+      color: #999;
+      font-size: 1rem;
+      font-style: italic;
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      color: #ff00ff;
+      margin-bottom: 1rem;
+      border-bottom: 1px dashed #333;
+      padding-bottom: 0.5rem;
+    }
+
+    .projects {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .project {
+      background: #111;
+      padding: 1.5rem;
+      border-left: 4px solid #00ffe1;
+      transition: all 0.2s ease;
+    }
+
+    .project:hover {
+      transform: translateX(4px);
+      border-left-color: #ff00ff;
+    }
+
+    .project h2 {
+      margin: 0;
+      color: #fff;
+      font-size: 1.5rem;
+    }
+
+    .project p {
+      margin: 0.5rem 0 1rem;
+      color: #bbb;
+    }
+
+    .project a {
+      color: #00ffe1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .project a:hover {
+      text-decoration: underline wavy;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #999;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <main>
+    <header>
+      <h1>&lt; tazy.dev /&gt;</h1>
+      <p class="pagefx">⚙️ random dev who codes weird tools and hobby projects</p>
+    </header>
+
+    <section>
+      <div class="section-title">🚀 My best projects</div>
+      <div class="projects">
+        <div class="project">
+          <h2>🌀 Rotor</h2>
+          <p>A custom programming language </p>
+          <a href="https://rotor-lang.github.io">see the site</a>
+        </div>
+        <div class="project">
+          <h2>💩 crap</h2>
+          <p>The new clap</p>
+          <a href="https://crates.io/crates/crap">see the crate</a>
+        </div>
+
+        <h2 class="centertext">More coming soon...</h2>
+        <img src="assets/happyguy.gif" alt="Happy Guy" class="anim-emoji">
+      </div>
+    </section>
+
+    
+  </main>
+</body>
+</html>
