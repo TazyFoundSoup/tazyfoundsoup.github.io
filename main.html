@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pink Day Jeopardy</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap">
+    <style>
+        :root {
+            --pink-main: #ff4fa3;
+            --pink-dark: #c2185b;
+            --pink-light: #ffe3f0;
+            --accent: #fff3e0;
+            --category-bg: #f06292;
+            --cell-bg: #ffb6d5;
+            --cell-hover: #f48fb1;
+            --cell-question: #fffde7;
+            --cell-answer: #a5d6a7;
+            --text-main: #fff;
+            --text-dark: #333;
+            --ribbon: #ff69b4;
+            --sparkle: #fffbe7;
+        }
+        @font-face {
+            font-family: 'Milkyway';
+            src: url('fonts/Milkyway DEMO.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            font-family: 'Montserrat', 'Milkyway', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--pink-main) 0%, var(--pink-light) 100%);
+            color: var(--text-main);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        /* Sparkle animation background */
+        .sparkle-bg {
+            pointer-events: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .sparkle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #fffbe7 60%, #ffb6d5 100%);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: sparkle-move 6s linear infinite;
+        }
+        @keyframes sparkle-move {
+            0% { transform: scale(0.7) translateY(0);}
+            50% { opacity: 1; }
+            100% { transform: scale(1.2) translateY(100vh); opacity: 0;}
+        }
+        header {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+        }
+        .ribbon {
+            width: 60px;
+            height: 80px;
+            margin-bottom: 10px;
+            background: none;
+            position: relative;
+            animation: bounce 1.5s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-10px);}
+        }
+        .ribbon svg {
+            width: 100%;
+            height: 100%;
+        }
+        h1 {
+            font-family: 'Milkyway', 'Montserrat', Arial, sans-serif;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            margin: 0;
+            color: var(--pink-dark);
+            text-shadow: 0 2px 12px #fff7, 0 1px 0 #fff;
+            animation: pop-in 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes pop-in {
+            0% { transform: scale(0.7); opacity: 0;}
+            80% { transform: scale(1.1);}
+            100% { transform: scale(1); opacity: 1;}
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--pink-dark);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            animation: fadeIn 1.5s 0.5s backwards;
+        }
+        #board {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-auto-rows: 110px;
+            max-width: 1100px;
+            margin: 30px auto 0 auto;
+            gap: 10px;
+            width: 95vw;
+            background: rgba(255,255,255,0.07);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+            padding: 18px 10px 24px 10px;
+            z-index: 1;
+        }
+        .category {
+            background: linear-gradient(90deg, #f06292 60%, #ffb6d5 100%);
+            color: var(--text-main);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            border-radius: 12px 12px 0 0;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px #f0629240;
+            border-bottom: 3px solid #fff7;
+            min-height: 60px;
+            text-shadow: 0 1px 0 #fff7;
+            animation: fadeIn 1.2s;
+        }
+        .cell {
+            background: var(--cell-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s, color 0.3s, opacity 0.3s, box-shadow 0.2s, transform 0.15s;
+            border-radius: 0 0 12px 12px;
+            position: relative;
+            min-width: 0;
+            overflow: hidden;
+            opacity: 1;
+            box-shadow: 0 2px 8px #ffb6d540;
+            border: 2px solid transparent;
+            animation: fadeIn 1.2s;
+        }
+        .cell[aria-pressed="true"] {
+            outline: 2px solid #fff;
+        }
+        .cell:hover, .cell:focus {
+            background: var(--cell-hover);
+            opacity: 0.98;
+            box-shadow: 0 4px 16px #f0629240;
+            border: 2px solid var(--pink-main);
+            transform: scale(1.06) rotate(-2deg);
+            z-index: 2;
+        }
+        .cell:active {
+            transform: scale(0.97) rotate(1deg);
+        }
+        .cell-content {
+            width: 100%;
+            padding: 0 10px;
+            transition: opacity 0.3s;
+            color: var(--text-dark);
+            font-weight: 600;
+            text-align: center;
+            animation: pop-in 0.7s;
+        }
+        .cell.state-question .cell-content {
+            background: var(--cell-question);
+            color: var(--pink-dark);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 1.05rem;
+            box-shadow: 0 1px 6px #fff5;
+            animation: question-pop 0.5s;
+        }
+        .cell.state-answer .cell-content {
+            background: var(--cell-answer);
+            color: #1b5e20;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 1.05rem;
+            box-shadow: 0 1px 6px #fff5;
+            animation: answer-pop 0.5s;
+        }
+        @keyframes question-pop {
+            0% { transform: scale(0.7) rotate(-5deg); opacity: 0;}
+            80% { transform: scale(1.1);}
+            100% { transform: scale(1) rotate(0); opacity: 1;}
+        }
+        @keyframes answer-pop {
+            0% { transform: scale(0.7) rotate(5deg); opacity: 0;}
+            80% { transform: scale(1.1);}
+            100% { transform: scale(1) rotate(0); opacity: 1;}
+        }
+        .reset-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 10px;
+            background: var(--pink-main);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            padding: 3px 10px;
+            cursor: pointer;
+            opacity: 0.8;
+            display: none;
+            z-index: 2;
+            transition: opacity 0.2s, background 0.2s;
+            box-shadow: 0 1px 4px #f0629240;
+        }
+        .reset-btn:hover {
+            background: var(--pink-dark);
+            opacity: 1;
+        }
+        .cell.show-reset .reset-btn {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        .cell.state-question {
+            background: var(--cell-question);
+        }
+        .cell.state-answer {
+            background: var(--cell-answer);
+        }
+        .cell.state-question, .cell.state-answer {
+            color: var(--text-dark);
+        }
+        .cell.state-question .reset-btn,
+        .cell.state-answer .reset-btn {
+            background: var(--pink-dark);
+            color: #fff;
+        }
+        .cell.state-question .reset-btn:hover,
+        .cell.state-answer .reset-btn:hover {
+            background: var(--pink-main);
+        }
+        /* Accessibility: focus ring */
+        .cell:focus-visible {
+            outline: 3px solid var(--pink-dark);
+            outline-offset: 2px;
+        }
+        /* Responsive */
+        @media (max-width: 900px) {
+            #board {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 98vw;
+            }
+            .category, .cell {
+                font-size: 1rem;
+                min-height: 60px;
+            }
+        }
+        @media (max-width: 600px) {
+            #board {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 8px 2px 12px 2px;
+            }
+            .category, .cell {
+                font-size: 0.95rem;
+                min-height: 50px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        /* Helper: fade-in animation */
+        .fade-in {
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: none;}
+        }
+        /* Confetti for answer reveal */
+        .confetti {
+            pointer-events: none;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            height: 0;
+            z-index: 10;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 18px;
+            border-radius: 4px;
+            opacity: 0.8;
+            animation: confetti-fall 1.2s forwards;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translate(-50%, -50%) scale(1.2) rotate(0deg);}
+            80% { opacity: 1;}
+            100% { transform: translate(var(--x), var(--y)) scale(0.7) rotate(360deg); opacity: 0;}
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkle-bg" aria-hidden="true"></div>
+    <header>
+        <div class="ribbon" aria-label="Pink Ribbon - Breast Cancer Awareness">
+            <svg viewBox="0 0 60 80">
+                <path d="M30 10 Q10 40 30 70 Q50 40 30 10" fill="none" stroke="#ff69b4" stroke-width="12" />
+                <ellipse cx="30" cy="10" rx="8" ry="8" fill="#ff69b4" opacity="0.7"/>
+            </svg>
+        </div>
+        <h1>Pink Day Jeopardy</h1>
+        <div class="subtitle">Celebrating Breast Cancer Awareness &amp; Support</div>
+    </header>
+    <div id="board" class="fade-in" aria-label="Jeopardy Game Board">
+        <div class="category">Breast Cancer Basics</div>
+        <div class="category">Detection &amp; Screening</div>
+        <div class="category">Treatment &amp; Recovery</div>
+        <div class="category">Advocacy &amp; Awareness</div>
+        <div class="category">Pink Ribbon Facts</div>
+
+        <!-- Row 1 -->
+        <div class="cell" tabindex="0" aria-label="100 points" data-question="What is breast cancer?" data-answer="A disease where cells in the breast grow out of control."><span class="cell-content">100</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="100 points" data-question="What is a mammogram?" data-answer="An X-ray image of the breast used to detect tumors or abnormalities."><span class="cell-content">100</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="100 points" data-question="What is chemotherapy?" data-answer="A treatment that uses drugs to destroy cancer cells."><span class="cell-content">100</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="100 points" data-question="What month is Breast Cancer Awareness Month?" data-answer="October."><span class="cell-content">100</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="100 points" data-question="What does the pink ribbon symbolize?" data-answer="Breast cancer awareness and support."><span class="cell-content">100</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+
+        <!-- Row 2 -->
+        <div class="cell" tabindex="0" aria-label="200 points" data-question="Name a risk factor for breast cancer." data-answer="Age, family history, genetics, lifestyle, or hormone exposure."><span class="cell-content">200</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="200 points" data-question="What is a breast self-exam?" data-answer="A method for individuals to check their own breasts for lumps or changes."><span class="cell-content">200</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="200 points" data-question="What is a mastectomy?" data-answer="Surgical removal of one or both breasts, partially or completely."><span class="cell-content">200</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="200 points" data-question="Who founded the Susan G. Komen Foundation?" data-answer="Nancy G. Brinker."><span class="cell-content">200</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="200 points" data-question="When was the pink ribbon first used for breast cancer awareness?" data-answer="1991, at the Susan G. Komen New York City Race for the Cure."><span class="cell-content">200</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+
+        <!-- Row 3 -->
+        <div class="cell" tabindex="0" aria-label="300 points" data-question="What gene mutations are linked to higher breast cancer risk?" data-answer="BRCA1 and BRCA2."><span class="cell-content">300</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="300 points" data-question="How often should women over 40 get a mammogram?" data-answer="Every 1-2 years, depending on risk factors and doctor’s advice."><span class="cell-content">300</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="300 points" data-question="What is radiation therapy?" data-answer="A treatment that uses high-energy rays to kill cancer cells."><span class="cell-content">300</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="300 points" data-question="Name a celebrity breast cancer survivor." data-answer="Examples: Sheryl Crow, Christina Applegate, Robin Roberts."><span class="cell-content">300</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="300 points" data-question="What color is used for breast cancer awareness events?" data-answer="Pink."><span class="cell-content">300</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+
+        <!-- Row 4 -->
+        <div class="cell" tabindex="0" aria-label="400 points" data-question="What is the most common symptom of breast cancer?" data-answer="A new lump or mass in the breast."><span class="cell-content">400</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="400 points" data-question="What is a biopsy?" data-answer="A procedure to remove a small sample of tissue for examination."><span class="cell-content">400</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="400 points" data-question="What is lymphedema?" data-answer="Swelling caused by lymph fluid buildup, sometimes after lymph node removal."><span class="cell-content">400</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="400 points" data-question="What is the goal of breast cancer awareness campaigns?" data-answer="To educate, promote early detection, and support research and patients."><span class="cell-content">400</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="400 points" data-question="What is the international symbol for breast cancer awareness?" data-answer="The pink ribbon."><span class="cell-content">400</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+
+        <!-- Row 5 -->
+        <div class="cell" tabindex="0" aria-label="500 points" data-question="Can men get breast cancer?" data-answer="Yes, men can also develop breast cancer, though it is rare."><span class="cell-content">500</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="500 points" data-question="What is the purpose of genetic testing for breast cancer?" data-answer="To identify inherited gene mutations that increase cancer risk."><span class="cell-content">500</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="500 points" data-question="What is hormone therapy in breast cancer treatment?" data-answer="A treatment that blocks hormones that fuel certain cancers."><span class="cell-content">500</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="500 points" data-question="What is the largest breast cancer fundraising event in the world?" data-answer="The Susan G. Komen Race for the Cure."><span class="cell-content">500</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+        <div class="cell" tabindex="0" aria-label="500 points" data-question="What day is National Mammography Day in the US?" data-answer="The third Friday in October."><span class="cell-content">500</span><button class="reset-btn" aria-label="Reset cell">↺</button></div>
+    </div>
+
+<script>
+    
+
+    // Confetti effect for answer reveal
+    function showConfetti(cell) {
+        const confettiColors = ['#ff4fa3', '#ffe3f0', '#f06292', '#ffb6d5', '#fffbe7', '#a5d6a7'];
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        for (let i = 0; i < 18; i++) {
+            const piece = document.createElement('div');
+            piece.className = 'confetti-piece';
+            piece.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+            const angle = Math.random() * 2 * Math.PI;
+            const radius = 60 + Math.random() * 40;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius + 10;
+            piece.style.setProperty('--x', `${x}px`);
+            piece.style.setProperty('--y', `${y}px`);
+            piece.style.transform = `translate(-50%, -50%) scale(1.2) rotate(${Math.random()*360}deg)`;
+            piece.style.animationDelay = (Math.random() * 0.2) + 's';
+            confetti.appendChild(piece);
+        }
+        cell.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1400);
+    }
+
+    document.querySelectorAll('.cell').forEach(cell => {
+        const content = cell.querySelector('.cell-content');
+        const resetBtn = cell.querySelector('.reset-btn');
+        const points = content.textContent;
+        const question = cell.getAttribute('data-question');
+        const answer = cell.getAttribute('data-answer');
+        let state = 0; // 0: points, 1: question, 2: answer
+
+        function updateCell() {
+            cell.classList.remove('state-question', 'state-answer');
+            if (state === 0) {
+                content.textContent = points;
+                cell.style.background = '';
+                cell.classList.remove('show-reset');
+            } else if (state === 1) {
+                content.textContent = question;
+                cell.classList.add('state-question');
+                cell.classList.add('show-reset');
+            } else if (state === 2) {
+                content.textContent = answer;
+                cell.classList.add('state-answer');
+                cell.classList.add('show-reset');
+                showConfetti(cell);
+            }
+        }
+
+        cell.addEventListener('click', (e) => {
+            if (e.target === resetBtn) return;
+            if (state < 2) {
+                state++;
+                updateCell();
+            }
+        });
+
+        cell.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                if (state < 2) {
+                    state++;
+                    updateCell();
+                }
+            }
+        });
+
+        resetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            state = 0;
+            updateCell();
+        });
+
+        updateCell();
+    });
+</script>
+</body>
+</html>
