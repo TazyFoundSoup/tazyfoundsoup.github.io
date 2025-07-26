@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Pink Day Jeopardy</title>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: linear-gradient(135deg, #ff4fa3, #ffe3f0);
+    color: #fff;
+    display: flex;
+    min-height: 100vh;
+  }
+  #sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: 260px;
+    height: 100vh;
+    background: #c2185b;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    overflow-y: auto;
+    box-shadow: 3px 0 12px #93004daa;
+  }
+  #sidebar h2 {
+    margin: 0 0 15px 0;
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-align: center;
+    text-shadow: 2px 2px 5px #93004d;
+  }
+  .team {
+    background: #ffb6d5;
+    border-radius: 12px;
+    padding: 12px;
+    color: #c2185b;
+    font-weight: 700;
+    box-shadow: 0 4px 8px #93004daa;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .team-name {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+  }
+  .team-score {
+    font-size: 2.8rem;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+  }
+  .controls {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+  .control-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  select {
+    font-weight: 700;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    padding: 6px 10px;
+    margin-bottom: 6px;
+    color: #c2185b;
+    background: #fff;
+    min-width: 80px;
+    cursor: pointer;
+    user-select: none;
+  }
+  button.apply-btn {
+    background: #f06292;
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px #93004d88;
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  button.apply-btn:hover {
+    background: #ff4fa3;
+  }
+  main {
+    margin-left: 280px;
+    flex: 1;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+  h1 {
+    font-size: 3rem;
+    margin: 0 0 15px 0;
+    text-align: center;
+    text-shadow: 3px 3px 6px #c2185b;
+  }
+  .subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 40px;
+    text-align: center;
+    text-shadow: 2px 2px 5px #c2185b;
+  }
+
+  #board {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 95vw;
+  }
+  .category {
+    background: #f06292;
+    padding: 14px 6px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 8px #ffb6d5cc;
+    color: #fff;
+  }
+  .cell {
+    background: #ffb6d5;
+    padding: 24px 10px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 6px 15px #ff4fa3aa;
+    transition: background 0.25s, transform 0.15s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 110px;
+    color: #c2185b;
+  }
+  .cell:hover:not(.used) {
+    background: #f48fb1;
+    transform: scale(1.1);
+    box-shadow: 0 10px 25px #f06292cc;
+  }
+  .cell.used {
+    background: #ccc;
+    color: #777;
+    cursor: default;
+    box-shadow: none;
+  }
+  .cell.question {
+    background: #fffde7;
+    color: #c2185b;
+    font-size: 1.15rem;
+    padding: 14px 12px;
+  }
+  .cell.answer {
+    background: #a5d6a7;
+    color: #1b5e20;
+    font-size: 1.15rem;
+    padding: 14px 12px;
+  }
+
+  @media (max-width: 720px) {
+    #sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 12px;
+      padding: 10px;
+    }
+    .team {
+      flex: 0 0 auto;
+      min-width: 140px;
+    }
+    main {
+      margin-left: 0;
+      padding: 10px;
+    }
+    #board {
+      grid-template-columns: repeat(2, 1fr);
+      width: 100vw;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div id="sidebar" aria-label="Team Scores and Controls">
+    <h2>Teams</h2>
+    <div class="team" data-team="1">
+      <div class="team-name">Team 1</div>
+      <div class="team-score">0</div>
+      <div class="controls">
+        <div class="control-group">
+          <select class="add-select">
+            <option value="100">+100</option>
+            <option value="200">+200</option>
+            <option value="300">+300</option>
+            <option value="400">+400</option>
+            <option value="500">+500</option>
+          </select>
+          <button class="apply-btn add-btn">Add</button>
+        </div>
+        <div class="control-group">
+          <select class="sub-select">
+            <option value="100">-100</option>
+            <option value="200">-200</option>
+            <option value="300">-300</option>
+            <option value="400">-400</option>
+            <option value="500">-500</option>
+          </select>
+          <button class="apply-btn sub-btn">Subtract</button>
+        </div>
+      </div>
+    </div>
+    <div class="team" data-team="2">
+      <div class="team-name">Team 2</div>
+      <div class="team-score">0</div>
+      <div class="controls">
+        <div class="control-group">
+          <select class="add-select">
+            <option value="100">+100</option>
+            <option value="200">+200</option>
+            <option value="300">+300</option>
+            <option value="400">+400</option>
+            <option value="500">+500</option>
+          </select>
+          <button class="apply-btn add-btn">Add</button>
+        </div>
+        <div class="control-group">
+          <select class="sub-select">
+            <option value="100">-100</option>
+            <option value="200">-200</option>
+            <option value="300">-300</option>
+            <option value="400">-400</option>
+            <option value="500">-500</option>
+          </select>
+          <button class="apply-btn sub-btn">Subtract</button>
+        </div>
+      </div>
+    </div>
+    <div class="team" data-team="3">
+      <div class="team-name">Team 3</div>
+      <div class="team-score">0</div>
+      <div class="controls">
+        <div class="control-group">
+          <select class="add-select">
+            <option value="100">+100</option>
+            <option value="200">+200</option>
+            <option value="300">+300</option>
+            <option value="400">+400</option>
+            <option value="500">+500</option>
+          </select>
+          <button class="apply-btn add-btn">Add</button>
+        </div>
+        <div class="control-group">
+          <select class="sub-select">
+            <option value="100">-100</option>
+            <option value="200">-200</option>
+            <option value="300">-300</option>
+            <option value="400">-400</option>
+            <option value="500">-500</option>
+          </select>
+          <button class="apply-btn sub-btn">Subtract</button>
+        </div>
+      </div>
+    </div>
+    <div class="team" data-team="4">
+      <div class="team-name">Team 4</div>
+      <div class="team-score">0</div>
+      <div class="controls">
+        <div class="control-group">
+          <select class="add-select">
+            <option value="100">+100</option>
+            <option value="200">+200</option>
+            <option value="300">+300</option>
+            <option value="400">+400</option>
+            <option value="500">+500</option>
+          </select>
+          <button class="apply-btn add-btn">Add</button>
+        </div>
+        <div class="control-group">
+          <select class="sub-select">
+            <option value="100">-100</option>
+            <option value="200">-200</option>
+            <option value="300">-300</option>
+            <option value="400">-400</option>
+            <option value="500">-500</option>
+          </select>
+          <button class="apply-btn sub-btn">Subtract</button>
+        </div>
+      </div>
+    </div>
+    <div class="team" data-team="5">
+      <div class="team-name">Team 5</div>
+      <div class="team-score">0</div>
+      <div class="controls">
+        <div class="control-group">
+          <select class="add-select">
+            <option value="100">+100</option>
+            <option value="200">+200</option>
+            <option value="300">+300</option>
+            <option value="400">+400</option>
+            <option value="500">+500</option>
+          </select>
+          <button class="apply-btn add-btn">Add</button>
+        </div>
+        <div class="control-group">
+          <select class="sub-select">
+            <option value="100">-100</option>
+            <option value="200">-200</option>
+            <option value="300">-300</option>
+            <option value="400">-400</option>
+            <option value="500">-500</option>
+          </select>
+          <button class="apply-btn sub-btn">Subtract</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <h1>🎉 Pink Day Jeopardy 🎉</h1>
+    <div class="subtitle">Compete & Learn About Breast Cancer Awareness!</div>
+
+    <div id="board" aria-label="Jeopardy Game Board">
+  <div class="category">Breast Cancer Basics</div>
+  <div class="category">Detection & Screening</div>
+  <div class="category">Treatment & Recovery</div>
+  <div class="category">Advocacy & Awareness</div>
+  <div class="category">Pink Ribbon Facts</div>
+
+  <!-- Breast Cancer Basics -->
+  <div class="cell" data-points="100" data-question="What is breast cancer?" data-answer="When cells in the breast grow abnormally.">100</div>
+  <div class="cell" data-points="200" data-question="Is breast cancer common or rare?" data-answer="It is a common cancer, especially in women.">200</div>
+  <div class="cell" data-points="300" data-question="Can men get breast cancer?" data-answer="Yes, but it is rare.">300</div>
+  <div class="cell" data-points="400" data-question="What part of the breast does cancer usually start?" data-answer="In the milk ducts or lobules.">400</div>
+  <div class="cell" data-points="500" data-question="What does 'metastasis' mean?" data-answer="Cancer spreading to other body parts.">500</div>
+
+  <!-- Detection & Screening -->
+  <div class="cell" data-points="100" data-question="What is a mammogram?" data-answer="An X-ray to check the breast for cancer.">100</div>
+  <div class="cell" data-points="200" data-question="At what age should women start getting mammograms?" data-answer="Usually after age 40.">200</div>
+  <div class="cell" data-points="300" data-question="What does a biopsy do?" data-answer="Takes a small sample of tissue to test for cancer.">300</div>
+  <div class="cell" data-points="400" data-question="Name one other test besides a mammogram." data-answer="Ultrasound or MRI.">400</div>
+  <div class="cell" data-points="500" data-question="Why is early detection important?" data-answer="It helps treat cancer before it spreads.">500</div>
+
+  <!-- Treatment & Recovery -->
+  <div class="cell" data-points="100" data-question="What is chemotherapy?" data-answer="Medicine that kills cancer cells.">100</div>
+  <div class="cell" data-points="200" data-question="What is radiation therapy?" data-answer="Using strong rays to kill cancer cells.">200</div>
+  <div class="cell" data-points="300" data-question="What is a mastectomy?" data-answer="Surgery to remove part or all of a breast.">300</div>
+  <div class="cell" data-points="400" data-question="Name one side effect of breast cancer treatment." data-answer="Hair loss or tiredness.">400</div>
+  <div class="cell" data-points="500" data-question="What does hormone therapy do?" data-answer="Blocks hormones that help cancer grow.">500</div>
+
+  <!-- Advocacy & Awareness -->
+  <div class="cell" data-points="100" data-question="When is Breast Cancer Awareness Month?" data-answer="October.">100</div>
+  <div class="cell" data-points="200" data-question="What does the pink ribbon stand for?" data-answer="Breast cancer support and awareness.">200</div>
+  <div class="cell" data-points="300" data-question="How can people help those with breast cancer?" data-answer="Donations, volunteering, or spreading awareness.">300</div>
+  <div class="cell" data-points="400" data-question="True or False: Finding cancer early helps save lives." data-answer="True.">400</div>
+  <div class="cell" data-points="500" data-question="What is advocacy in breast cancer?" data-answer="Supporting patients and pushing for better care.">500</div>
+
+  <!-- Pink Ribbon Facts -->
+  <div class="cell" data-points="100" data-question="What color is the breast cancer ribbon?" data-answer="Pink.">100</div>
+  <div class="cell" data-points="200" data-question="Who popularized the pink ribbon?" data-answer="The Susan G. Komen Foundation.">200</div>
+  <div class="cell" data-points="300" data-question="Name one event that raises money for breast cancer." data-answer="Race for the Cure or charity walks.">300</div>
+  <div class="cell" data-points="400" data-question="When was the pink ribbon first used?" data-answer="In the early 1990s.">400</div>
+  <div class="cell" data-points="500" data-question="What does wearing a pink ribbon show?" data-answer="Support and hope for those affected.">500</div>
+</div>
+
+
+  </main>
+
+<script>
+  const teamScores = [0, 0, 0, 0, 0];
+
+  function updateScore(team) {
+    const teamDiv = document.querySelector(`.team[data-team="${team}"]`);
+    const scoreEl = teamDiv.querySelector('.team-score');
+    scoreEl.textContent = teamScores[team - 1];
+  }
+
+  document.querySelectorAll('.team').forEach(teamDiv => {
+    const team = parseInt(teamDiv.getAttribute('data-team'));
+
+    const addBtn = teamDiv.querySelector('.add-btn');
+    const addSelect = teamDiv.querySelector('.add-select');
+    addBtn.addEventListener('click', () => {
+      const addPoints = parseInt(addSelect.value);
+      teamScores[team - 1] += addPoints;
+      updateScore(team);
+    });
+
+    const subBtn = teamDiv.querySelector('.sub-btn');
+    const subSelect = teamDiv.querySelector('.sub-select');
+    subBtn.addEventListener('click', () => {
+      const subPoints = parseInt(subSelect.value);
+      teamScores[team - 1] -= subPoints;
+      if (teamScores[team - 1] < 0) teamScores[team - 1] = 0;
+      updateScore(team);
+    });
+  });
+
+  document.querySelectorAll('.cell').forEach(cell => {
+    let state = 0;
+    cell.addEventListener('click', () => {
+      if (cell.classList.contains('used')) return;
+      if (state === 0) {
+        cell.textContent = cell.getAttribute('data-question');
+        cell.classList.add('question');
+        state = 1;
+      } else if (state === 1) {
+        cell.textContent = cell.getAttribute('data-answer');
+        cell.classList.remove('question');
+        cell.classList.add('answer');
+        state = 2;
+      } else if (state === 2) {
+        cell.classList.add('used');
+        cell.classList.remove('answer');
+        state = 3;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
