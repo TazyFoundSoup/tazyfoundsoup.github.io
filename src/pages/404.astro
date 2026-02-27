@@ -1,14 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const missingBackButtonLabel = "Back to home page";
+const missingBackButtonLabel = "cd ..";
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 ---
 
 <BaseLayout title="404 - Page Not Found">
   <div class="page">
-    <h1>404 — Page not found...</h1>
-      <p>The page you're looking for doesn't exist. It might have been moved, deleted, or you may have entered the wrong URL.</p>
+    <h1>404</h1>
+      <p>You have come across a 404. That's not good. And it's not my fault so you should find your way back. Sometimes life isn't easy but we all have to put effort somewhere</p>
       <div>
         <a href={base} class="button inline">
           <span class="button__text">{missingBackButtonLabel} →</span>
