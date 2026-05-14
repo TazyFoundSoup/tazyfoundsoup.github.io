@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cult of Tazy</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        header, main, footer,
+        nav, section, article {
+            border: 1px solid black;
+        }
+
+        header, footer {
+            padding: 12px;
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            grid-template-areas:
+                "nav posts"
+                "nav about"
+                "nav projects";
+            gap: 10px;
+            padding: 10px;
+        }
+
+        nav {
+            grid-area: nav;
+            padding: 10px;
+        }
+
+        #posts {
+            grid-area: posts;
+            padding: 10px;
+        }
+
+        #about {
+            grid-area: about;
+            padding: 10px;
+        }
+
+        #projects {
+            grid-area: projects;
+            padding: 10px;
+        }
+
+        section, article {
+            padding: 8px;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        h1, h2, h3, p {
+            margin: 6px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>watson</h1>
+        <p>rich ass white boy 🤑🤑</p>
+    </header>
+
+    <main>
+
+        <nav>
+            <h2>navigation</h2>
+            <ul>
+                <li><a href="#posts">posts</a></li>
+                <li><a href="#about">about</a></li>
+                <li><a href="#projects">projects</a></li>
+            </ul>
+        </nav>
+
+        <section id="posts">
+            <h2>posts</h2>
+
+            <article>
+                <h3>first entry</h3>
+                <p>astro genuinely cheeks</p>
+                <small>posted: 14/05/2026</small>
+                <a href="first-entry.html">see it</a>
+            </article>
+
+        </section>
+
+        <section id="about">
+            <h2>about</h2>
+            <p>i am a interesting person. i have funny opinions. if you wanna hire me, im remote unless your office is loacted at 48°52.6'S, 123°23.6'W</p>
+        </section>
+
+        <section id="projects">
+            <h2>projects</h2>
+            <ul>
+                <li>tinyff (2025-present)</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>last updated: unknown</p>
+    </footer>
+
+</body>
+</html>
