@@ -1,167 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cult of Tazy</title>
-    <link rel="icon" href="willy.jpeg">
-
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background-color: whitesmoke;
-        }
-
-        header, main, footer,
-        nav, section, article {
-            border: 1px solid black;
-        }
-
-        header, footer {
-            padding: 12px;
-        }
-
-        main {
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            grid-template-areas:
-                "nav posts"
-                "nav about"
-                "nav projects"
-                "nav altar";
-            gap: 10px;
-            padding: 10px;
-        }
-
-        nav {
-            grid-area: nav;
-            padding: 10px;
-        }
-
-        #posts {
-            grid-area: posts;
-            padding: 10px;
-        }
-
-        #about {
-            grid-area: about;
-            padding: 10px;
-        }
-
-        #projects {
-            grid-area: projects;
-            padding: 10px;
-        }
-
-        #altar {
-            grid-area: altar;
-            padding: 10px;
-        }
-
-        section, article {
-            padding: 8px;
-        }
-
-        ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-
-        h1, h2, h3, p {
-            margin: 6px 0;
-        }
-
-        .inline-icon {
-            display: inline-block;
-            width: 1em;
-            height: 1em;
-            background-image: url("http://soggy.cat/static/ssoggycat/main/images/soggycat.webp");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            vertical-align: -0.15em;
-        }
-    </style>
+  <title>98.css example</title>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://unpkg.com/98.css" />
+  <style>
+      body {
+          background-color: #EAE2F1;
+      }
+  </style>
 </head>
+
 <body>
-    <marquee>dang it. my git repos are down again. wait a little bit. i got no mirrors. listen to <a href="https://geeseband.com">geese</a> while it's not working. anyway, this marquee is sponsored by oven. happy birthday to me as well. i might actually keep this marquee as like a cool deco at the top of the page. actually, scrap that "might", we are all using marquees in the big '26</marquee>
-    <header>
-        <h1>watson</h1>
-        <p>rich ass white boy 🤑🤑</p>
-    </header>
+    <p>im watson. check out <a href="https://tinyff.org">tinyff</a></p>
+    <h3>If uyo need my git stuff, its down, so haha.</h3>
+  <div class="window" style="margin: 32px; width: 250px">
+    <div class="title-bar">
+      <div class="title-bar-text">
+        the magical mystery chair
+      </div>
+    </div>
+    <div class="window-body">
+      <a href="site.html">🪑</a>
+    </div>
+  </div>
+  <div class="sunken-panel" style="height: 120px; width: 240px;">
+  <table class="interactive">
+    <thead>
+      <tr>
+        <th>nearly</th>
+        <th>selective</th>
+        <th>enough</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>MySQL ODBC 3.51 Driver</td>
+        <td>3.51.11.00</td>
+        <td>MySQL AB</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+      <tr>
+        <td>SQL Server</td>
+        <td>3.70.06.23</td>
+        <td>Microsoft Corporation</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+  document.querySelectorAll('table.interactive').forEach(element => {
+    element.addEventListener('click', (event) => {
+      const highlightedClass = 'highlighted';
+      const isRow = element => element.tagName === 'TR' && element.parentElement.tagName === 'TBODY';
+      const newlySelectedRow = event.composedPath().find(isRow);
+      const previouslySelectedRow = Array.from(newlySelectedRow.parentElement.children).filter(isRow).find(element => element.classList.contains(highlightedClass));
+      if(previouslySelectedRow){
+        previouslySelectedRow.classList.toggle(highlightedClass);
+      }
 
-    <main>
-
-        <nav>
-            <h2>navigation</h2>
-            <ul>
-                <li><a href="#posts">posts</a></li>
-                <li><a href="#about">about</a></li>
-                <li><a href="#projects">projects</a></li>
-                <li><a href="#altar">tapes</a></li>
-            </ul>
-        </nav>
-
-        <section id="posts">
-            <h2>posts</h2>
-
-            <article>
-                <h3>my yak shaving problem</h3>
-                <p>this is just a rant. you can completely ignore it</p>
-                <small>posted: 06/8/2026</small>
-                <a href="yak.html">see it</a>
-            </article>
-
-        </section>
-
-        <section id="about">
-            <h2>about</h2>
-            <p>i am a interesting person. i have funny opinions. if you wanna hire me, im remote unless your office is loacted at 48°52.6'S, 123°23.6'W</p>
-        </section>
-
-        <section id="projects">
-            <h2>projects</h2>
-            <ul>
-                <li>tinyff (2025-present)</li>
-            </ul>
-        </section>
-
-        <section id="altar">
-            <h2>tapes</h2>
-            <p>Testing Albums, Potentially Exposing Sh<span class="inline-icon"></span>t</p>
-
-            <article>
-                <h3>grip your fist, im heaven bound (racing mount pleasant) - TAPES REVIEW!!!!</h3>
-                <p>a review on racing mount pleasant's debut album, grip your fist, im heaven bound.</p>
-                <a href="https://tazy.dev/tapes/gripurfist.html">reeeeeeeeeeeeeeeeeead</a>
-            </article>
-        </section>
-
-    </main>
-
-    <footer>
-        <p id="last-updated">last updated: loading...</p>
-    </footer>
-
-    <script>
-        async function updateLastUpdated() {
-            try {
-                const res = await fetch("https://api.github.com/repos/tazyfoundsoup/tazyfoundsoup.github.io/commits?per_page=1")
-                const data = await res.json()
-                const date = new Date(data[0].commit.committer.date)
-                const unix = Math.floor(date.getTime() / 1000)
-                document.getElementById("last-updated").textContent = "last updated (unix): " + unix
-            } catch (e) {
-                document.getElementById("last-updated").textContent = "last updated: unknown"
-            }
-        }
-
-        updateLastUpdated()
-    </script>
-
+      if (newlySelectedRow) {
+        newlySelectedRow.classList.toggle(highlightedClass);
+      }
+    })
+  });
+</script>
+<img src="willy.jpeg" alt="cool willy rodriguez image" style="margin-left: auto; 
+margin-right: 0;">
+<marquee>wow.                 such cool flying text</marquee>
+⠀⢀⠀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠄⠀⠀⢸⣷⣷⣾⡂⠀⡀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣱⡀⣼⠸⣿⡛⢧⠇⢠⣬⣠⣿⠀⣠⣤⠀⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⢀⣤⣤⡾⣿⢟⣿⣶⣿⣿⣾⣿⣿⣿⣿⣿⣾⣿⣾⢅⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⢀⣸⣇⣿⣿⣽⣾⣿⣿⣿⣿⣿⣟⣿⣿⣿⣿⣿⣿⣿⣷⣕⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿⣽⣿⣿⣯⡢⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⣈⣿⣿⡿⠁⣿⣿⣿⣿⣿⣿⢿⣛⣿⣿⣫⡿⠋⢸⢿⣿⣿⠊⠉⠀⠀<br>
+⢀⣞⢽⣇⣤⣴⣿⣿⢿⠇⣸⣽⣿⣿⣿⣿⣽⣿⣿⣿⣿⠏⠀⠀⠀⢻⣿⣽⣣⣿⠀⠀<br>
+⣸⣿⣮⣿⣿⣿⣿⣷⣿⢓⣽⣿⣿⣿⣿⣿⣿⣿⣯⣷⣄⠀⠀⠀⠀⣽⣿⡿⣷⣿⠆⠀<br>
+⠈⠉⠉⠉⠉⠋⠉⠉⠉⢸⣿⣿⣿⣻⣿⣿⣯⣾⣿⣿⣿⣇⠀⠀⠐⢿⣿⣿⣿⡟⡂⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣽⠂⠀⠠⣿⣿⣿⣿⡖⡇⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⢠⡀⠀⣿⣿⣿⣿⡏⠉⠸⣿⣶⣿⢿⣿⡄⠀⠀⣿⣿⣿⡿⣭⢻⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⣷⡆⢹⣿⣿⣿⣇⠀⠀⢿⣿⣿⣾⣿⣷⠀⢰⣿⣿⣿⣷⣿⡇⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⢸⣷⣿⣿⣿⣿⡅⠀⠀⠈⣿⣿⣿⣿⣯⡀⠘⢿⠿⠃⠉⠉⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⣿⣻⣿⣽⣧⠀⠀⠀⢹⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢼⣿⣿⣿⣯⡃⠀⠀⠀⠀⣿⣿⣿⣻⢷⢦⠀⠀⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⢺⣿⣿⣿⣿⣿⠀⠀⠀⠀⢻⣿⣿⣿⣿⡄⠁⠀⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⣻⣿⣿⣿⣿⣿⡇⠀⠀⠀⢸⣿⢷⢿⣿⣿⡄⠀⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⣸⣷⣿⣿⣿⣿⣿⡇⠀⠀⠀⢸⣿⣿⣛⢿⣿⣷⡀⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⣤⣻⣿⣿⣿⢟⣿⣿⣏⡁⠀⠀⠀⠈⣿⣿⣼⣼⡿⣿⣽⠄⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⣀⡠⣿⣿⣿⣿⡿⢿⣿⠻⢿⡃⠀⠀⠀⠀⢹⣿⣟⣼⣡⣿⣗⣧⠀⠀⠀⠀<br>
+⠀⠀⠀⠛⢉⡻⣭⣿⢩⣷⡁⠘⠋⠀⠁⠀⠀⠀⠀⠀⠈⣿⣯⣿⢿⣿⣿⡇⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣻⣿⠯⣻⣷⠀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣬⣿⣶⠆⣿⣄⡀⠀⠀⠀⠀<br>
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠿⠀⠀⠀⠀⠹⠇⠀⠀⠀⠀<br>
+<blink>COOLL SONg UPCOMING</blink>
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0SkgmGr08TvWQciNRgRtmc?utm_source=generator&si=507f8274860b4c08" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+<hr>
+<strong>
+／＞　　フ <br>
+| 　_　 _ l<br>
+／` ミ＿xノ<br>
+/　　　 　 |                        my name is watson if you didnt know<br>
+/　 ヽ　　 ﾉ<br>
+│　　|　|　|<br>
+／￣|　 |　|　|<br>
+| (￣ヽ＿_ヽ_)__)<br>
+＼二つ</strong>
+<hr>
+<button>flip</button>
+<button>flop</button>
+<button>flip</button>
+<button>flop</button>
+<button>🪸</button>
+<hr>
+<hr>
+<hr>
+<hr><hr><hr><hr>
+<input type="text">send a message to me :]</input>
+<p>btw im still working on the message sending thing</p>
 </body>
 </html>
