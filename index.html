@@ -8,105 +8,141 @@
       body {
           background-color: #EAE2F1;
       }
+
+      .corner-willy {
+          position: fixed;
+          top: 15px;
+          right: 15px;
+          z-index: 9999;
+          text-align: center;
+      }
+
+      .corner-willy img {
+          width: 100px;
+          height: 100px;
+          object-fit: cover;
+          display: block;
+      }
+
+      .corner-willy a {
+          display: block;
+          margin-top: 4px;
+      }
   </style>
 </head>
 
 <body>
     <p>im watson. check out <a href="https://tinyff.org">tinyff</a></p>
     <h3>If uyo need my git stuff, its down, so haha.</h3>
-  <div class="window" style="margin: 32px; width: 250px">
-    <div class="title-bar">
-      <div class="title-bar-text">
-        the magical mystery chair
-      </div>
-    </div>
-    <div class="window-body">
-      <a href="site.html">🪑</a>
-    </div>
-  </div>
-  <div class="sunken-panel" style="height: 120px; width: 240px;">
-  <table class="interactive">
-    <thead>
-      <tr>
-        <th>nearly</th>
-        <th>selective</th>
-        <th>enough</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>MySQL ODBC 3.51 Driver</td>
-        <td>3.51.11.00</td>
-        <td>MySQL AB</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-      <tr>
-        <td>SQL Server</td>
-        <td>3.70.06.23</td>
-        <td>Microsoft Corporation</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<script>
-  document.querySelectorAll('table.interactive').forEach(element => {
-    element.addEventListener('click', (event) => {
-      const highlightedClass = 'highlighted';
-      const isRow = element => element.tagName === 'TR' && element.parentElement.tagName === 'TBODY';
-      const newlySelectedRow = event.composedPath().find(isRow);
-      const previouslySelectedRow = Array.from(newlySelectedRow.parentElement.children).filter(isRow).find(element => element.classList.contains(highlightedClass));
-      if(previouslySelectedRow){
-        previouslySelectedRow.classList.toggle(highlightedClass);
-      }
 
-      if (newlySelectedRow) {
-        newlySelectedRow.classList.toggle(highlightedClass);
-      }
-    })
-  });
-</script>
-<img src="willy.jpeg" alt="cool willy rodriguez image" style="margin-left: auto; 
-margin-right: 0;">
-<marquee>wow.                 such cool flying text</marquee>
+    <div class="window" style="margin: 32px; width: 250px">
+        <div class="title-bar">
+            <div class="title-bar-text">
+                the magical mystery chair
+            </div>
+        </div>
+        <div class="window-body">
+            <a href="site.html">🪑</a>
+        </div>
+    </div>
+
+    <div class="sunken-panel" style="height: 120px; width: 240px;">
+        <table class="interactive">
+            <thead>
+                <tr>
+                    <th>nearly</th>
+                    <th>selective</th>
+                    <th>enough</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MySQL ODBC 3.51 Driver</td>
+                    <td>3.51.11.00</td>
+                    <td>MySQL AB</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+                <tr>
+                    <td>SQL Server</td>
+                    <td>3.70.06.23</td>
+                    <td>Microsoft Corporation</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.querySelectorAll('table.interactive').forEach(element => {
+            element.addEventListener('click', (event) => {
+                const highlightedClass = 'highlighted';
+                const isRow = element => element.tagName === 'TR' && element.parentElement.tagName === 'TBODY';
+                const newlySelectedRow = event.composedPath().find(isRow);
+
+                if (!newlySelectedRow) {
+                    return;
+                }
+
+                const previouslySelectedRow = Array.from(newlySelectedRow.parentElement.children)
+                    .filter(isRow)
+                    .find(element => element.classList.contains(highlightedClass));
+
+                if (previouslySelectedRow) {
+                    previouslySelectedRow.classList.toggle(highlightedClass);
+                }
+
+                newlySelectedRow.classList.toggle(highlightedClass);
+            });
+        });
+    </script>
+
+    <div class="corner-willy">
+        <img src="willy.jpeg" alt="cool willy rodriguez image">
+        <a href="site.html">🪑 chair</a>
+        <a href="https://tinyff.org">tinyff</a>
+        <a href="/">home</a>
+    </div>
+
+    <marquee>wow.                 such cool flying text</marquee>
+
 ⠀⢀⠀⠀⢠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐<br>
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⠄⠀⠀⢸⣷⣷⣾⡂⠀⡀⠀⣼⠀⠀⠀⠀⠀⠀⠀⠀⠀<br>
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣱⡀⣼⠸⣿⡛⢧⠇⢠⣬⣠⣿⠀⣠⣤⠀⠀⠀⠀⠀⠀<br>
@@ -132,10 +168,24 @@ margin-right: 0;">
 ⠀⠀⠀⠀⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣾⣿⣻⣿⠯⣻⣷⠀⠀⠀⠀⠀<br>
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣬⣿⣶⠆⣿⣄⡀⠀⠀⠀⠀<br>
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠿⠀⠀⠀⠀⠹⠇⠀⠀⠀⠀<br>
-<blink>COOLL SONg UPCOMING</blink>
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/0SkgmGr08TvWQciNRgRtmc?utm_source=generator&si=507f8274860b4c08" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-<hr>
-<strong>
+
+    <blink>COOLL SONg UPCOMING</blink>
+
+    <iframe
+        data-testid="embed-iframe"
+        style="border-radius:12px"
+        src="https://open.spotify.com/embed/track/0SkgmGr08TvWQciNRgRtmc?utm_source=generator&si=507f8274860b4c08"
+        width="100%"
+        height="352"
+        frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+    </iframe>
+
+    <hr>
+
+    <strong>
 ／＞　　フ <br>
 | 　_　 _ l<br>
 ／` ミ＿xノ<br>
@@ -144,18 +194,27 @@ margin-right: 0;">
 │　　|　|　|<br>
 ／￣|　 |　|　|<br>
 | (￣ヽ＿_ヽ_)__)<br>
-＼二つ</strong>
-<hr>
-<button>flip</button>
-<button>flop</button>
-<button>flip</button>
-<button>flop</button>
-<button>🪸</button>
-<hr>
-<hr>
-<hr>
-<hr><hr><hr><hr>
-<input type="text">send a message to me :]</input>
-<p>btw im still working on the message sending thing</p>
+＼二つ
+    </strong>
+
+    <hr>
+
+    <button>flip</button>
+    <button>flop</button>
+    <button>flip</button>
+    <button>flop</button>
+    <button>🪸</button>
+
+    <hr>
+    <hr>
+    <hr>
+    <hr>
+    <hr>
+    <hr>
+    <hr>
+
+    <input type="text">send a message to me :]</input>
+
+    <p>btw im still working on the message sending thing</p>
 </body>
 </html>
