@@ -29,6 +29,14 @@
           margin-top: 4px;
       }
   </style>
+  <script type="module">
+    import { initAgent } from "https://cdn.jsdelivr.net/npm/clippyjs/dist/index.mjs";
+    import { Clippy } from "https://cdn.jsdelivr.net/npm/clippyjs/dist/agents/index.mjs";
+
+    const clippy = await initAgent(Clippy);
+    clippy.show();
+    clippy.speak("how we doing cuh");
+</script>
 </head>
 
 <body>
